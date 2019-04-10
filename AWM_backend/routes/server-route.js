@@ -8,7 +8,6 @@ let { check, validationResult } = require('express-validator/check');
 let User = require('../model/User');
 let Todos = require('../model/Todos');
 let TodoGroup = require('../model/TodoGroup');
-let session = require('express-session');
 let cors = require('cors');
 require('../model/mongoConnect');
 
@@ -17,12 +16,6 @@ router.use(bodyParser.urlencoded({'extended': 'true'}));
 router.use(bodyParser.json());
 router.use(bodyParser.json({type: 'application/vnd.api+json'}));
 router.use(cookieParser());
-router.use(session({
-    secret: 'AWM_Backend',
-    resave: false,
-    saveUninitialized: true,
-    cookie: { secure: true }
-}));
 
 router.use(cors());
 router.use(function(req, res, next) {
@@ -30,7 +23,6 @@ router.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     next();
 });
-
 
 
 router.post('/signUp', [

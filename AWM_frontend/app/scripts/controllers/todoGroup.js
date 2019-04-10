@@ -17,11 +17,11 @@ angular.module('Todo')
             $rootScope.isConnected = true;
         else
             $rootScope.isConnected = false;
-        $http.get(`http://localhost:3000/user/${email}`)
+        $http.get(`http://mamadembele.fr:3000/user/${email}`)
             .then(res => {
                 owner = res.data[0]._id;
                 $cookies.put('userId', owner);
-                $http.get(`http://localhost:3000/user/todoGroups/${res.data[0]._id}`)
+                $http.get(`http://mamadembele.fr:3000/user/todoGroups/${res.data[0]._id}`)
                     .then(response => {
                         $scope.todoGroup = response.data;
                     })
@@ -34,7 +34,7 @@ angular.module('Todo')
             });
 
         $scope.ajouterTG = function () {
-            $http.post(`http://localhost:3000/todoGroup/create/${owner}`, $scope.formData)
+            $http.post(`http://mamadembele.fr:3000/todoGroup/create/${owner}`, $scope.formData)
                 .then(res => {
                     $window.location.reload();
                 })
@@ -45,7 +45,7 @@ angular.module('Todo')
 
         $scope.supprimerTG = function (id) {
             if(confirm('T\'es sûr de vouloir supprimer ta liste de tâche ?'))
-                $http.delete(`http://localhost:3000/todoGroup/delete/${id}`)
+                $http.delete(`http://mamadembele.fr:3000/todoGroup/delete/${id}`)
                     .then(res => {
                         $window.location.reload();
                     })
@@ -59,7 +59,7 @@ angular.module('Todo')
                 nom: $scope.formData.name,
             };
 
-            $http.put(`http://localhost:3000/todoGroup/update/${id}`, data)
+            $http.put(`http://mamadembele.fr:3000/todoGroup/update/${id}`, data)
                 .then(res => {
                     $window.location.reload();
                 })

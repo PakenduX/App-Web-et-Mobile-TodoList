@@ -11,7 +11,7 @@ angular.module('Todo')
     .controller('signUpCtrl', function ($scope, $http, $window) {
         $scope.formData = {};
         $scope.userSignUp = () => {
-            $http.post('http://localhost:3000/signUp', $scope.formData)
+            $http.post('http://mamadembele.fr:3000/signUp', $scope.formData)
                 .then(res => {
                     if(res.data.errors !== undefined){
                         $scope.errors = res.data.errors;

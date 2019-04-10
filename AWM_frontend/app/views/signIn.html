@@ -1,9 +1,11 @@
 <div class="row" style="margin-top: 50px;">
     <div class="col-md-3"></div>
     <div class="col-md-5">
-        <div class="alert alert-danger" ng-repeat="error in errors">
+        <div ng-if="errors" class="alert alert-danger" ng-repeat="error in errors ">
             <span>{{ error.msg }}</span>
         </div>
+        <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+
         <form class="text-center border border-light p-5">
             <p class="h4 mb-4">Connecte-toi</p>
 
