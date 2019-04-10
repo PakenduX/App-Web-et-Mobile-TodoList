@@ -70,38 +70,50 @@ router.post('/signUp', [
   }
 });
 
-router.post('/signIn', function(req, res) {
+router.post('/signIn', [
+    check('email').isEmail().withMessage('Entre une adresse email valide'),
+    check('password').isLength({ min: 6 }).withMessage('Ton mot de passe doit être de minimum 6 caractères'),
+
+], function(req, res) {
     let email = req.body.email;
     let password = req.body.password;
-    User.findOne({
-        email: email
-    })
-        .then(user => {
-            if(!user)
-                res.json({
-                   'status' : 'error',
-                   'message' : 'Cet utilisateur n\'existe pas'
-                });
-            bcrypt.compare(password, user.password)
-                .then(response => {
-                   if(response)
-                       res.json({
-                           'status' : 'success',
-                           'message' : 'Bienvenue'
-                       });
-                   else
-                       res.json({
-                           'status' : 'error',
-                           'message' : 'Email ou mot de passe incorrect'
-                       });
-                })
-                .catch(error => {
-                    res.json(error);
-                });
+
+    let errors = validationResult(req);
+
+    if (!errors.isEmpty())
+        return res.json({ errors: errors.array() });
+    else{
+        User.findOne({
+            email: email
         })
-        .catch(error => {
-            res.json(error);
-        });
+            .then(user => {
+                if(!user)
+                    res.json({
+                        'status' : 'error',
+                        'message' : 'Cet utilisateur n\'existe pas'
+                    });
+                else {
+                    bcrypt.compare(password, user.password)
+                        .then(response => {
+                            if (response)
+                                res.json(response
+                                );
+                            else
+                                res.json({
+                                    'status': 'error',
+                                    'message': 'Email ou mot de passe incorrect'
+                                });
+                        })
+                        .catch(error => {
+                            res.json(error);
+                        });
+                }
+            })
+            .catch(error => {
+                res.json(error);
+            });
+
+    }
 });
 
 router.post('/todo/create/:owner/:group', (req, res) => {
@@ -215,18 +227,48 @@ router.put('/todo/update/:id', (req, res) => {
         _id: req.params.id
     })
         .then(todo => {
-            console.log(todo);
-            if (req.body.text !== undefined)
+            if (req.body.text !== undefined) {
                 todo.text = req.body.text;
+                todo.date = new Date();
+            }
 
-            if (req.body.done !== undefined)
+            if (req.body.done !== undefined) {
                 todo.done = req.body.done;
+                todo.date = new Date();
+            }
 
             todo.save()
                 .then(response => {
                     res.json({
                         'status': 'success',
                         'message': 'Todo bien mis à jour'
+                    });
+                })
+                .catch(error => {
+                    res.json(error);
+                });
+        })
+        .catch(error => {
+            res.json(error);
+        });
+});
+
+router.put('/todoGroup/update/:id', (req, res) => {
+
+    TodoGroup.findOne({
+        _id: req.params.id
+    })
+        .then(todo => {
+            if (req.body.nom !== undefined) {
+                todo.nom = req.body.nom;
+                todo.date = new Date();
+            }
+
+            todo.save()
+                .then(response => {
+                    res.json({
+                        'status': 'success',
+                        'message': 'TodoGroup bien mis à jour'
                     });
                 })
                 .catch(error => {

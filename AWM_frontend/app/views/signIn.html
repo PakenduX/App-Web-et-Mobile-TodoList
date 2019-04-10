@@ -1,15 +1,36 @@
 <div class="row" style="margin-top: 50px;">
     <div class="col-md-3"></div>
     <div class="col-md-5">
-        <div class="alert alert-danger">{{ error }}</div>
+        <div class="alert alert-danger" ng-repeat="error in errors">
+            <span>{{ error.msg }}</span>
+        </div>
         <form class="text-center border border-light p-5">
             <p class="h4 mb-4">Connecte-toi</p>
 
-            <input type="text" id="email" class="form-control mb-4" placeholder="Email" ng-model="formData.email">
+            <input
+                    type="text"
+                    id="email"
+                    class="form-control mb-4"
+                    placeholder="Email"
+                    ng-model="formData.email"
+                    autocomplete="off"
+            >
 
-            <input type="password" id="password" class="form-control mb-4" placeholder="Password" ng-model="formData.password">
+            <input
+                    type="password"
+                    id="password"
+                    class="form-control mb-4"
+                    placeholder="Password"
+                    ng-model="formData.password"
+                    autocomplete="off"
+            >
 
-            <button class="btn btn-info btn-block my-4" type="submit" ng-click="userSignIn()">Se connecter</button>
+            <button
+                    class="btn btn-info btn-block my-4"
+                    type="submit" ng-click="userSignIn()"
+            >
+                Se connecter
+            </button>
 
             <p>Tu n'as pas encore de compte ?
                 <a ng-href="#!/signUp">S'enregistrer</a>

@@ -53,4 +53,18 @@ angular.module('Todo')
                         console.log(error);
                     });
         }
+
+        $scope.modifierTG = function (id) {
+            let data = {
+                nom: $scope.formData.name,
+            };
+
+            $http.put(`http://localhost:3000/todoGroup/update/${id}`, data)
+                .then(res => {
+                    $window.location.reload();
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
     });
