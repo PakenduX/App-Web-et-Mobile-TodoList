@@ -1,0 +1,43 @@
+
+<ion-view view-title="connexion">
+    <ion-content class="padding">
+        <div ng-if="!isConnected">
+            <div ng-if="errors" class="alert alert-danger" ng-repeat="error in errors ">
+                <span>{{ error.msg }}</span>
+            </div>
+            <div ng-if="error" class="alert alert-danger">{{ error }}</div>
+            <form class="text-center border border-light p-5">
+                <p class="h4 mb-4">Connecte-toi</p>
+
+                <input
+                    type="text"
+                    id="email"
+                    class="form-control mb-4"
+                    placeholder="Email"
+                    ng-model="formData.email"
+                    autocomplete="off"
+                >
+
+                <input
+                    type="password"
+                    id="password"
+                    class="form-control mb-4"
+                    placeholder="Password"
+                    ng-model="formData.password"
+                >
+
+                <button
+                    class="btn btn-info btn-block my-4"
+                    type="submit" ng-click="userSignIn()"
+                >
+                    Se connecter
+                </button>
+
+            </form>
+        </div>
+        <div ng-if="isConnected">
+            Tu es déjà connecté
+        </div>
+    </ion-content>
+</ion-view>
+

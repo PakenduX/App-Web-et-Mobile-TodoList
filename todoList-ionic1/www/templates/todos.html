@@ -1,0 +1,38 @@
+<ion-view view-title="Listes de tâches">
+    <ion-content>
+        <div ng-if="isConnected">
+            <div class="col-md-3" style="margin-top : 20px" ng-repeat="todo in todos">
+                <div class="card">
+                    <img class="card-img-top" src="../img/todo.png" alt="todo"/>
+                    <div class="card-body">
+                        <h4 class="card-title"><a>{{ todo.text }}</a></h4>
+                        <p class="card-text">{{ todo.text }}</p>
+                        <p class="card-text">créée le <span class="lead" style="font-size: 1.2em; font-weight: bold">{{ todo.date | date:'dd/MM/yyyy'}}</span></p>
+                        <span ng-if="todo.done"><i class="fas fa-check-circle" style="font-size: 20px"></i></span>
+                        <div class="row">
+                            <button class="btn btn-info"  ng-click="showPopup(todo._id, todo.done)">Modifier</button>
+                            <button class="btn btn-danger" ng-click="supprimerTodo(todo._id)">Supprimer</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+                <span class="h3">Ajouter une nouvelle tâche</span>
+            </div>
+            <form class="col-md-5">
+                <input
+                    type="text"
+                    id="text"
+                    class="form-control mb-4"
+                    placeholder="Saisis le nom de ta nouvelle tâche"
+                    ng-model="formData.text"
+                />
+                <button type="submit" class="btn btn-primary" ng-click="ajouterTodo()">Ajouter</button>
+            </form>
+        </div>
+        <div ng-if="!isConnected">
+            Veuille d'abord te connecter s'il te plaît
+        </div>
+    </ion-content>
+</ion-view>

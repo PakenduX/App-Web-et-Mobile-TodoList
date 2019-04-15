@@ -1,0 +1,35 @@
+<ion-view view-title="Listes de tâches" cache-view="false">
+  <ion-content>
+      <div ng-if="isConnected">
+          <div class="col-md-3" style="margin-top : 20px" ng-repeat="todo in todoGroup">
+            <div class="card">
+              <img class="card-img-top" src="../img/todoGroup.jpg" alt="todo" />
+              <div class="card-body">
+                <h4 class="card-title"><a>{{ todo.nom }}</a></h4>
+                <p class="card-text">Ouvre ou modifie ta liste de tâche</p>
+                <p class="card-text">créée le <span class="lead" style="font-size: 1.2em; font-weight: bold">{{ todo.date | date: 'dd/MM/yyyy'}}</span></p>
+                <button ng-click="goToTodos(todo._id, todo.nom)" class="btn btn-info">Ouvrir</button>
+                <button ng-click="supprimerTG(todo._id)" class="btn btn-danger">Supprimer</button>
+                <button class="btn btn-primary" ng-click="showPopup(todo._id)">Modifier</button>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-3">
+              <span to="" class="h3">Ajouter une nouvelle liste</span>
+          </div>
+          <form class="col-md-5">
+              <input
+                  type="text"
+                  id="name"
+                  class="form-control mb-4"
+                  placeholder="Saisis le nom de ta nouvelle liste de tâche"
+                  ng-model="formData.nom"
+              />
+              <button type="submit" class="btn btn-primary" ng-click="ajouterTG()">Ajouter</button>
+          </form>
+      </div>
+      <div ng-if="!isConnected">
+          Veuille d'abord te connecter s'il te plaît
+      </div>
+  </ion-content>
+</ion-view>
