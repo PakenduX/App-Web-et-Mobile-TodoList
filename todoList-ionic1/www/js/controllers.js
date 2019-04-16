@@ -4,10 +4,10 @@ angular.module('starter.controllers', [])
  * Controller de la connexion
  */
     .controller('signInCtrl', function ($scope, $http, $window, $rootScope, $state) {
-  $scope.formData = {
-      email: 'pkx@dev.com',
-      password: '1234567'
-  };
+      $scope.formData = {
+          email: '',
+          password: ''
+      };
   $scope.userSignIn = function(){
     $http.post('http://mamadembele.fr:3000/signIn', $scope.formData)
       .then(function(res) {
