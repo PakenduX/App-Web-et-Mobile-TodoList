@@ -35,13 +35,13 @@
                             </div>
 
                             <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="customSwitch1{{todo._id}}" ng-model="formData.done" ng-checked="todo.done">
-                                <label class="custom-control-label" for="customSwitch1{{todo._id}}">Terminée</label>
+                                <input type="checkbox" class="custom-control-input" id="done" ng-model="formData.done" ng-checked="formData.done">
+                                <label class="custom-control-label" for="done">Terminée</label>
                             </div>
 
                         </div>
                         <div class="modal-footer d-flex justify-content-center">
-                            <button type="submit" class="btn btn-default" ng-click="modifierTodo(todo._id)">modifier</button>
+                            <button type="submit" class="btn btn-default" ng-click="modifierTodo(todo._id, todo.done)">modifier</button>
                         </div>
                     </div>
                 </div>

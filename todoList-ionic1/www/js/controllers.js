@@ -155,6 +155,8 @@ angular.module('starter.controllers', [])
     };
 
     $scope.modifierTodo = function (id) {
+        if($scope.formData.done === undefined)
+            $scope.formData.done = false;
 
         $http.put(`http://mamadembele.fr:3000/todo/update/${id}`, $scope.formData)
             .then(res => {
@@ -177,7 +179,7 @@ angular.module('starter.controllers', [])
                 '                            </div>\n' +
                 '\n' +
                 '                            <div class="custom-control custom-switch">\n' +
-                '                                <input type="checkbox" class="custom-control-input" id="customSwitch1" ng-model="formData.done" ng-checked="'+done+'">\n' +
+                '                                <input type="checkbox" class="custom-control-input" id="customSwitch1" ng-model="formData.done" ng-checked="formData.done">\n' +
                 '                                <label class="custom-control-label" for="customSwitch1">Terminée</label>\n' +
                 '                            </div>\n' +
                 '\n' +

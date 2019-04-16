@@ -45,9 +45,12 @@ angular.module('Todo')
                     .catch(error => {
                         console.log(error);
                     });
-        }
+        };
 
         $scope.modifierTodo = function (id) {
+            if($scope.formData.done === undefined)
+                $scope.formData.done = false;
+
             let data = {
                 text: $scope.formData.texte,
                 done: $scope.formData.done
@@ -61,5 +64,5 @@ angular.module('Todo')
                 .catch(error => {
                     console.log(error);
                 });
-        }
+        };
     });
