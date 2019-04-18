@@ -1,0 +1,68 @@
+    <div class=container>
+        <div class="row" style=" margin-top : 50px">
+            <div class="col-md-4"></div>
+            <div class="col-md-6 h1">Tes listes de tâches</div>
+        </div>
+        <div class="row">
+            <div class="col-md-3" style="margin-top : 20px" ng-repeat="todo in todoGroup">
+
+                <div class="card">
+                    <img class="card-img-top" src="../images/todoGroup.jpg" alt="todo" />
+                    <div class="card-body">
+                        <h4 class="card-title"><a>{{ todo.nom }}</a></h4>
+                        <p class="card-text">Ouvre ou modifie ta liste de tâche</p>
+                        <p class="card-text">created at <span class="lead" style="font-size: 1.2em; font-weight: bold">{{ todo.date | date:'dd/MM/yyyy'}}</span></p>
+                        <div class="row">
+                            <a ng-href="#!/todo?todoGroupId={{todo._id}}&todoGroupNom={{todo.nom}}" class="btn btn-info">Ouvrir</a>
+                            <button ng-click="supprimerTG(todo._id)" class="btn btn-danger">Supprimer</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#{{todo._id}}">Modifier</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="{{todo._id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold">Modifie ta liste de tâches</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body mx-3">
+                                <div class="md-form mb-5">
+                                    <input type="text" id="defaultForm-email" class="form-control validate" ng-model="formData.name">
+                                    <label data-error="wrong" data-success="right" for="defaultForm-email">le nom de ta liste</label>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer d-flex justify-content-center">
+                                <button type="submit" class="btn btn-default" ng-click="modifierTG(todo._id)">modifier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <div class="row" style="margin-top: 30px">
+        <div class="col-md-5"></div>
+        <div class="col-md-3">
+            <span to="" class="h3">Ajouter une nouvelle liste</span>
+        </div>
+    </div>
+    <div class="row" style=" margin-top: 10px">
+        <div class="col-md-5"></div>
+        <form class="col-md-5">
+            <input
+                type="text"
+                id="name"
+                class="form-control mb-4"
+                placeholder="Saisis le nom de ta nouvelle liste de tâche"
+                ng-model="formData.nom"
+            />
+            <button type="submit" class="btn btn-primary" ng-click="ajouterTG()">Ajouter</button>
+        </form>
+    </div>
+</div>
